@@ -87,7 +87,7 @@ $packageRoot = Join-Path $buildRoot 'package'
 Remove-Item -LiteralPath $packageRoot -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force -Path $packageRoot | Out-Null
 
-foreach ($item in @('App', 'Config', 'Data', 'StartPage', 'Scripts\Start-Rescowser.ps1', 'Rescowser.cmd', 'README.md', 'NOTICE.md', 'LICENSE')) {
+foreach ($item in @('App', 'Config', 'Data', 'StartPage', 'Scripts', 'Rescowser.cmd', 'README.md', 'NOTICE.md', 'LICENSE')) {
     $source = Join-Path $repoRoot $item
     if (Test-Path -LiteralPath $source) {
         $destination = Join-Path $packageRoot $item
