@@ -1,0 +1,40 @@
+name: Build Rescowser portable package
+
+on:
+  workflow_dispatch:
+    inputs:
+      firefox_version:
+        description: Mozilla Firefox ESR version (for example 153.7.0esr)
+        required: true
+        default: 153.7.0esr
+      locale:
+        description: Firefox interface locale
+        required: true
+        default: pt-PT
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-2022
+    timeout-minutes: 30
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Build x86 and x64 portable package
+        shell: pwsh
+        run: |
+          ./Scripts/Build-Rescowser.ps1 `
+            -FirefoxVersion '${{ inputs.firefox_version }}' `
+            -Locale '${{ inputs.locale }}'
+
+      - name: Upload portable ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rescowser-Portable-${{ inputs.firefox_version }}
+          path: dist/Rescowser-Portable.zip
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
