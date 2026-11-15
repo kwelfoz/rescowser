@@ -1,0 +1,8 @@
+.build/
+dist/
+App/x86/
+App/x64/
+Data/Profiles/*
+!Data/Profiles/.gitkeep
+Data/Downloads/*
+!Data/Downloads/.gitkeep
